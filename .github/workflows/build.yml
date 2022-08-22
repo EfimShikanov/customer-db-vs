@@ -12,12 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
 
-      - name: create dacpac
-        run: |
-          & 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe' CustomerLib_Shikanov.sqlproj /p:Configuration=Release
-          
-      - uses: actions/upload-artifact@v2
-        with:
-          name: DACPAC
-          path: ${{ github.workspace }}/bin/Release/
+      - name: Build app for release
+        run: msbuild CustomerLib_Shikanov\CustomerLib_Shikanov.sqlproj -t:rebuild -verbosity:diag -property:Configuration=Release
+        
+      
