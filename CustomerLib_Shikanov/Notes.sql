@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Notes]
+(
+	NoteId INT IDENTITY(1,1) PRIMARY KEY,
+	CustomerId INT FOREIGN KEY REFERENCES Customer(CustomerId),
+	Note VARCHAR(50) CHECK (LEN(NOTE) > 0) NOT NULL
+)
+
+
